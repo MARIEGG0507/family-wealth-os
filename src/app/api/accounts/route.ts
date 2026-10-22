@@ -107,6 +107,27 @@ export const POST = withAuth(
           },
         });
       }
+      if (
+        parsed.data.category === "MORTGAGE"
+      ) {
+        await tx.mortgageMetadata.create({
+          data: {
+            accountId: created.id,
+            principalAmount: parsed.data.principalAmount ?? 0,
+            interestRate: parsed.data.interestRate ?? 0,
+            monthlyPayment: parsed.data.monthlyPayment ?? 0,
+            remainingBalance: parsed.data.remainingBalance ?? 0,
+            paidPeriods: parsed.data.paidPeriods ?? 0,
+            remainingPeriods: parsed.data.remainingPeriods ?? 0,
+            totalPeriods:
+              (parsed.data.paidPeriods ?? 0) +
+              (parsed.data.remainingPeriods ?? 0),
+            startDate: new Date(),
+            endDate: new Date(),
+            bankName: null,
+          },
+        });
+      }
       return created;
     });
     invalidateUserCaches(userId);

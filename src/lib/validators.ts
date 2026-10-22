@@ -46,6 +46,13 @@ export const createAccountSchema = z.object({
   category: z.enum(ACCOUNT_CATEGORIES),
   currency: z.string().length(3),
   cashBalance: crudDecimalNumber.default(0),
+
+  principalAmount: z.number().optional(),
+  interestRate: z.number().optional(),
+  monthlyPayment: z.number().optional(),
+  remainingBalance: z.number().optional(),
+  paidPeriods: z.number().optional(),
+  remainingPeriods: z.number().optional(),
 });
 
 export const updateAccountSchema = createAccountSchema

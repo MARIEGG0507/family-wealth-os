@@ -54,6 +54,7 @@ export function AccountForm({
   const [monthlyPayment, setMonthlyPayment] = useState("");
   const [paidPeriods, setPaidPeriods] = useState("");
   const [remainingBalance, setRemainingBalance] = useState("");
+  const [remainingPeriods, setRemainingPeriods] = useState("");
 
   // Reset to defaults, then close, so a discarded/submitted form doesn't reopen
   // with stale input.
@@ -111,6 +112,13 @@ export function AccountForm({
           category,
           currency,
           cashBalance: parseAmountInput(cashBalance) || 0,
+
+          principalAmount: Number(principalAmount) || 0,
+          interestRate: Number(interestRate) || 0,
+          monthlyPayment: Number(monthlyPayment) || 0,
+          remainingBalance: Number(remainingBalance) || 0,
+          paidPeriods: Number(paidPeriods) || 0,
+          remainingPeriods: Number(remainingPeriods) || 0,
         }),
       });
 
@@ -222,32 +230,56 @@ export function AccountForm({
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label>貸款本金</Label>
-              <Input placeholder="10800000" />
+              <Input
+                value={principalAmount}
+                onChange={(e) => setPrincipalAmount(e.target.value)}
+                placeholder="10800000"
+              />
             </div>
 
             <div className="space-y-2">
               <Label>利率 (%)</Label>
-              <Input placeholder="2.210" />
+              <Input
+                value={interestRate}
+                onChange={(e) => setInterestRate(e.target.value)}
+                placeholder="2.210"
+              />
             </div>
 
             <div className="space-y-2">
               <Label>每月繳款</Label>
-              <Input placeholder="33864" />
+              <Input
+                value={monthlyPayment}
+                onChange={(e) => setMonthlyPayment(e.target.value)}
+                placeholder="33864"
+              />
             </div>
 
             <div className="space-y-2">
               <Label>剩餘本金</Label>
-              <Input placeholder="10339460" />
+              <Input
+                value={remainingBalance}
+                onChange={(e) => setRemainingBalance(e.target.value)}
+                placeholder="10339460"
+              />
             </div>
 
             <div className="space-y-2">
               <Label>已繳期數</Label>
-              <Input placeholder="31" />
+              <Input
+                value={paidPeriods}
+                onChange={(e) => setPaidPeriods(e.target.value)}
+                placeholder="31"
+              />
             </div>
 
             <div className="space-y-2">
               <Label>剩餘期數</Label>
-              <Input placeholder="450" />
+              <Input
+                value={remainingPeriods}
+                onChange={(e) => setRemainingPeriods(e.target.value)}
+                placeholder="450"
+              />
             </div>
           </div>
         </div>
