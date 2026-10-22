@@ -87,9 +87,19 @@ export const POST = withAuth(
     });
 
     const account = await prisma.$transaction(async (tx) => {
+      const {
+        principalAmount,
+        interestRate,
+        monthlyPayment,
+        remainingBalance,
+        paidPeriods,
+        remainingPeriods,
+        ...accountData
+      } = parsed.data;
+
       const created = await tx.account.create({
         data: {
-          ...parsed.data,
+          ...accountData,
           userId,
           sortOrder: (maxSortOrder._max.sortOrder ?? -1) + 1,
         },
@@ -111,13 +121,13 @@ export const POST = withAuth(
         await tx.mortgageMetadata.create({
           data: {
             accountId: created.id,
-            principalAmount: parsed.data.principalAmount ?? 0,
-            interestRate: parsed.data.interestRate ?? 0,
-            monthlyPayment: parsed.data.monthlyPayment ?? 0,
-            remainingBalance: parsed.data.remainingBalance ?? 0,
-            paidPeriods: parsed.data.paidPeriods ?? 0,
-            remainingPeriods: parsed.data.remainingPeriods ?? 0,
-            totalPeriods: (parsed.data.paidPeriods ?? 0) + (parsed.data.remainingPeriods ?? 0),
+            principalAmount: principalAmount ?? 0,
+            interestRate: interestRate ?? 0,
+            monthlyPayment: monthlyPayment ?? 0,
+            remainingBalance: remainingBalance ?? 0,
+            paidPeriods: paidPeriods ?? 0,
+            remainingPeriods: remainingPeriods ?? 0,
+            totalPeriods: (paidPeriods ?? 0) + (remainingPeriods ?? 0),
             startDate: new Date(),
             endDate: new Date(),
             bankName: null,
