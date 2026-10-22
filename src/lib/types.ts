@@ -211,8 +211,7 @@ export function serializeAccountWithHoldings(
           paidPeriods: account.mortgageMetadata.paidPeriods,
           remainingPeriods: account.mortgageMetadata.remainingPeriods,
           totalPeriods: account.mortgageMetadata.totalPeriods,
-          nextPaymentDate:
-            account.mortgageMetadata.nextPaymentDate?.toISOString() ?? null,
+          nextPaymentDate: account.mortgageMetadata.nextPaymentDate?.toISOString() ?? null,
         }
       : null,
   };

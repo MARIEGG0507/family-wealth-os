@@ -55,6 +55,9 @@ export function AccountForm({
   const [paidPeriods, setPaidPeriods] = useState("");
   const [remainingBalance, setRemainingBalance] = useState("");
   const [remainingPeriods, setRemainingPeriods] = useState("");
+  const [lenderName, setLenderName] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [payoffDate, setPayoffDate] = useState("");
 
   // Reset to defaults, then close, so a discarded/submitted form doesn't reopen
   // with stale input.
@@ -223,17 +226,24 @@ export function AccountForm({
           )}
         </div>
       )}
-      {category === "MORTGAGE" && (
+      {type === "LIABILITY" && (
         <div className="space-y-4 rounded-lg border p-4">
-          <h3 className="font-medium">房貸資訊</h3>
-
+          <h3 className="font-medium">📉 負債資訊</h3>
+          <div className="space-y-2">
+            <Label>貸款機構</Label>
+            <Input
+              value={lenderName}
+              onChange={(e) => setLenderName(e.target.value)}
+              placeholder="國泰世華銀行"
+            />
+          </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <Label>貸款本金</Label>
+              <Label>原始本金</Label>
               <Input
                 value={principalAmount}
                 onChange={(e) => setPrincipalAmount(e.target.value)}
-                placeholder="10800000"
+                placeholder="1000000"
               />
             </div>
 
@@ -260,7 +270,7 @@ export function AccountForm({
               <Input
                 value={remainingBalance}
                 onChange={(e) => setRemainingBalance(e.target.value)}
-                placeholder="10339460"
+                placeholder="950000"
               />
             </div>
 
@@ -269,7 +279,7 @@ export function AccountForm({
               <Input
                 value={paidPeriods}
                 onChange={(e) => setPaidPeriods(e.target.value)}
-                placeholder="31"
+                placeholder="12"
               />
             </div>
 
@@ -278,9 +288,30 @@ export function AccountForm({
               <Input
                 value={remainingPeriods}
                 onChange={(e) => setRemainingPeriods(e.target.value)}
-                placeholder="450"
+                placeholder="228"
               />
             </div>
+            <div className="space-y-2">
+              <Label>開始日期</Label>
+              <Input
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label>預計結清日</Label>
+              <Input
+                type="date"
+                value={payoffDate}
+                onChange={(e) => setPayoffDate(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="rounded-md bg-muted p-3 text-sm text-muted-foreground">
+            適用於房貸、學貸、信貸、車貸等所有負債帳戶
           </div>
         </div>
       )}

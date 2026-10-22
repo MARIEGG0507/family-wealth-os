@@ -117,7 +117,7 @@ export const POST = withAuth(
           },
         });
       }
-      if (parsed.data.category === "MORTGAGE") {
+      if (parsed.data.type === "LIABILITY") {
         await tx.mortgageMetadata.create({
           data: {
             accountId: created.id,

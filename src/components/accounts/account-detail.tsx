@@ -445,9 +445,7 @@ export function AccountDetail({
             </div>
             <div>
               <p className="text-sm text-muted-foreground">貸款利率</p>
-              <p className="text-xl font-bold">
-                {account.mortgageMetadata.interestRate}%
-              </p>
+              <p className="text-xl font-bold">{account.mortgageMetadata.interestRate}%</p>
             </div>
             <div>
               <p className="text-sm text-muted-foreground">每月繳款</p>
@@ -457,21 +455,15 @@ export function AccountDetail({
             </div>
             <div>
               <p className="text-sm text-muted-foreground">已繳期數</p>
-              <p className="text-xl font-bold">
-                {account.mortgageMetadata.paidPeriods}
-              </p>
+              <p className="text-xl font-bold">{account.mortgageMetadata.paidPeriods}</p>
             </div>
             <div>
               <p className="text-sm text-muted-foreground">剩餘期數</p>
-              <p className="text-xl font-bold">
-                {account.mortgageMetadata.remainingPeriods}
-              </p>
+              <p className="text-xl font-bold">{account.mortgageMetadata.remainingPeriods}</p>
             </div>
             <div>
               <p className="text-sm text-muted-foreground">總期數</p>
-              <p className="text-xl font-bold">
-                {account.mortgageMetadata.totalPeriods}
-              </p>
+              <p className="text-xl font-bold">{account.mortgageMetadata.totalPeriods}</p>
             </div>
             <div>
               <p className="text-sm text-muted-foreground">期數進度</p>
