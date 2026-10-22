@@ -68,6 +68,7 @@ const account: SerializedAccountWithHoldings = {
   name: "Crypto wallet",
   type: "ASSET",
   category: "CRYPTO_WALLET",
+  ownership: "SELF",
   currency: "USD",
   cashBalance: 0,
   isActive: true,

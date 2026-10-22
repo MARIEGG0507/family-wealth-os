@@ -33,6 +33,11 @@ enum AccountCategory {
   MORTGAGE
   OTHER
 }
+enum OwnershipType {
+  SELF
+  SPOUSE
+  JOINT
+}
 
 model Account {
   id               String            @id @default(cuid())
@@ -41,6 +46,7 @@ model Account {
   name             String
   type             AccountType
   category         AccountCategory
+  ownership        OwnershipType     @default(SELF)
   currency         String            @default("USD")
   cashBalance      Decimal           @default(0) @db.Decimal(28, 8)
   isActive         Boolean           @default(true)

@@ -22,13 +22,7 @@ export const POST = withAuth(
     const parsed = createCashTransactionSchema.safeParse(body);
     if (!parsed.success) return validationError(parsed.error);
 
-    const {
-      type,
-      amount,
-      note,
-      category,
-      occurrenceDate,
-    } = parsed.data;
+    const { type, amount, note, category, occurrenceDate } = parsed.data;
     const amountError = getCashTransactionAmountError({ type, amount });
     if (amountError) return failure(amountError, 400);
 

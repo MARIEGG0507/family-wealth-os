@@ -46,6 +46,9 @@ export function AccountForm({
   const [name, setName] = useState("");
   const [type, setType] = useState<"ASSET" | "LIABILITY">("ASSET");
   const [category, setCategory] = useState("BANK");
+  const [ownership, setOwnership] = useState<
+    "SELF" | "SPOUSE" | "JOINT"
+  >("SELF");
   const [currency, setCurrency] = useState(defaultCurrency);
   const [cashBalance, setCashBalance] = useState("0");
   const [cashBalanceError, setCashBalanceError] = useState("");
@@ -113,6 +116,7 @@ export function AccountForm({
           name,
           type,
           category,
+          ownership,
           currency,
           cashBalance: parseAmountInput(cashBalance) || 0,
 
@@ -189,6 +193,34 @@ export function AccountForm({
         </div>
       </div>
 
+      <div className="space-y-2">
+        <Label>持有人</Label>
+
+        <Select
+          value={ownership}
+          onValueChange={(v) =>
+            setOwnership(v as "SELF" | "SPOUSE" | "JOINT")
+          }
+        >
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+
+          <SelectContent>
+            <SelectItem value="SELF">
+              👨 老公資產
+            </SelectItem>
+
+            <SelectItem value="SPOUSE">
+              👩 老婆資產
+            </SelectItem>
+
+            <SelectItem value="JOINT">
+              🤝 共同資產
+            </SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
       <div className="space-y-2">
         <Label htmlFor={currencyId}>{t("accountForm.labelCurrency")}</Label>
         <Select value={currency} onValueChange={(v) => v && setCurrency(v)}>
