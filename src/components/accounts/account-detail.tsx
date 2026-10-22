@@ -418,7 +418,7 @@ export function AccountDetail({
         onSaveBalance={saveBalance}
         onCashTransactionRecorded={() => setRefreshTrigger((prev) => prev + 1)}
       />
-      {account.category === "MORTGAGE" && account.mortgageMetadata && (
+      {account.type === "LIABILITY" && account.mortgageMetadata && (
         <div className="rounded-xl border bg-card p-6">
           <h3 className="text-lg font-semibold mb-4">📉 負債摘要</h3>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">

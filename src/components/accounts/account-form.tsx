@@ -293,11 +293,7 @@ export function AccountForm({
             </div>
             <div className="space-y-2">
               <Label>開始日期</Label>
-              <Input
-                type="date"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-              />
+              <Input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
             </div>
 
             <div className="space-y-2">
