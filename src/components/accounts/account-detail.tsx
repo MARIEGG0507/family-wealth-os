@@ -420,10 +420,10 @@ export function AccountDetail({
       />
       {account.category === "MORTGAGE" && account.mortgageMetadata && (
         <div className="rounded-xl border bg-card p-6">
-          <h3 className="text-lg font-semibold mb-4">🏠 房貸資訊</h3>
+          <h3 className="text-lg font-semibold mb-4">📉 負債摘要</h3>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             <div>
-              <p className="text-sm text-muted-foreground">貸款本金</p>
+              <p className="text-sm text-muted-foreground">原始本金</p>
               <p className="text-xl font-bold">
                 {account.mortgageMetadata.principalAmount.toLocaleString()}
               </p>
@@ -432,6 +432,15 @@ export function AccountDetail({
               <p className="text-sm text-muted-foreground">剩餘本金</p>
               <p className="text-xl font-bold">
                 {account.mortgageMetadata.remainingBalance.toLocaleString()}
+              </p>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">已還本金</p>
+              <p className="text-xl font-bold">
+                {(
+                  account.mortgageMetadata.principalAmount -
+                  account.mortgageMetadata.remainingBalance
+                ).toLocaleString()}
               </p>
             </div>
             <div>
@@ -465,7 +474,7 @@ export function AccountDetail({
               </p>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">房貸進度</p>
+              <p className="text-sm text-muted-foreground">期數進度</p>
               <p className="text-xl font-bold">
                 {(
                   (account.mortgageMetadata.paidPeriods /
@@ -475,11 +484,23 @@ export function AccountDetail({
                 %
               </p>
             </div>
+            <div>
+              <p className="text-sm text-muted-foreground">本金償還率</p>
+              <p className="text-xl font-bold">
+                {(
+                  ((account.mortgageMetadata.principalAmount -
+                    account.mortgageMetadata.remainingBalance) /
+                    Math.max(account.mortgageMetadata.principalAmount, 1)) *
+                  100
+                ).toFixed(2)}
+                %
+              </p>
+            </div>
           </div>
         </div>
       )}
 
-      {!isBank && (
+      {!isBank && account.type === "ASSET" && (
         <>
           {/* Mobile: swipeable rows */}
           <div className="md:hidden mt-8">
