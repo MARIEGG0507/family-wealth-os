@@ -38,7 +38,10 @@ async function queryActiveAccountsWithHoldings(
 ): Promise<SerializedAccountWithHoldings[]> {
   const raw = await prisma.account.findMany({
     where: { userId, isActive: true },
-    include: { holdings: { where: { quantity: { gt: 0 } } } },
+    include: {
+      holdings: { where: { quantity: { gt: 0 } } },
+      mortgageMetadata: true,
+    },
     orderBy: [{ isPinned: "desc" }, { sortOrder: "asc" }, { createdAt: "asc" }, { id: "asc" }],
   });
   return raw.map(serializeAccountWithHoldings);
@@ -55,7 +58,10 @@ async function fetchUserArchivedAccountsWithHoldingsInner(
   cacheLife("hours");
   const raw = await prisma.account.findMany({
     where: { userId, isActive: false },
-    include: { holdings: { where: { quantity: { gt: 0 } } } },
+    include: {
+      holdings: { where: { quantity: { gt: 0 } } },
+      mortgageMetadata: true,
+    },
     orderBy: [{ isPinned: "desc" }, { sortOrder: "asc" }, { createdAt: "asc" }, { id: "asc" }],
   });
   return raw.map(serializeAccountWithHoldings);
@@ -112,7 +118,10 @@ export async function loadNetWorthInputsForUsers(
 
   const raw = await prisma.account.findMany({
     where: { userId: { in: userIds }, isActive: true },
-    include: { holdings: { where: { quantity: { gt: 0 } } } },
+    include: {
+      holdings: { where: { quantity: { gt: 0 } } },
+      mortgageMetadata: true,
+    },
     // Same ordering as the single-user query. Bucketing below preserves it
     // within each user, so per-user account order is unchanged.
     orderBy: [{ isPinned: "desc" }, { sortOrder: "asc" }, { createdAt: "asc" }, { id: "asc" }],

@@ -62,8 +62,23 @@ export type SerializedHolding = Serialized<
   "createdAt" | "updatedAt" | "expiration"
 >;
 
+export type SerializedMortgageMetadata = {
+  id: string;
+  accountId: string;
+  bankName: string | null;
+  principalAmount: number;
+  interestRate: number;
+  monthlyPayment: number;
+  remainingBalance: number;
+  paidPeriods: number;
+  remainingPeriods: number;
+  totalPeriods: number;
+  nextPaymentDate: string | null;
+};
+
 export type SerializedAccountWithHoldings = SerializedAccount & {
   holdings: SerializedHolding[];
+  mortgageMetadata?: SerializedMortgageMetadata | null;
 };
 
 export type SerializedTransaction = Serialized<
@@ -163,11 +178,43 @@ export function serializeHolding(holding: Holding): SerializedHolding {
 }
 
 export function serializeAccountWithHoldings(
-  account: Account & { holdings: Holding[] },
+  account: Account & {
+    holdings: Holding[];
+    mortgageMetadata?: {
+      id: string;
+      accountId: string;
+      bankName: string | null;
+      principalAmount: { toString(): string };
+      interestRate: { toString(): string };
+      monthlyPayment: { toString(): string };
+      remainingBalance: { toString(): string };
+      paidPeriods: number;
+      remainingPeriods: number;
+      totalPeriods: number;
+      nextPaymentDate: Date | null;
+    } | null;
+  },
 ): SerializedAccountWithHoldings {
   return {
     ...serializeAccount(account),
     holdings: account.holdings.map(serializeHolding),
+
+    mortgageMetadata: account.mortgageMetadata
+      ? {
+          id: account.mortgageMetadata.id,
+          accountId: account.mortgageMetadata.accountId,
+          bankName: account.mortgageMetadata.bankName,
+          principalAmount: Number(account.mortgageMetadata.principalAmount),
+          interestRate: Number(account.mortgageMetadata.interestRate),
+          monthlyPayment: Number(account.mortgageMetadata.monthlyPayment),
+          remainingBalance: Number(account.mortgageMetadata.remainingBalance),
+          paidPeriods: account.mortgageMetadata.paidPeriods,
+          remainingPeriods: account.mortgageMetadata.remainingPeriods,
+          totalPeriods: account.mortgageMetadata.totalPeriods,
+          nextPaymentDate:
+            account.mortgageMetadata.nextPaymentDate?.toISOString() ?? null,
+        }
+      : null,
   };
 }
 

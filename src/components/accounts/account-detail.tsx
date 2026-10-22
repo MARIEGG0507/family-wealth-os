@@ -418,6 +418,66 @@ export function AccountDetail({
         onSaveBalance={saveBalance}
         onCashTransactionRecorded={() => setRefreshTrigger((prev) => prev + 1)}
       />
+      {account.category === "MORTGAGE" && account.mortgageMetadata && (
+        <div className="rounded-xl border bg-card p-6">
+          <h3 className="text-lg font-semibold mb-4">🏠 房貸資訊</h3>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <div>
+              <p className="text-sm text-muted-foreground">貸款本金</p>
+              <p className="text-xl font-bold">
+                {account.mortgageMetadata.principalAmount.toLocaleString()}
+              </p>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">剩餘本金</p>
+              <p className="text-xl font-bold">
+                {account.mortgageMetadata.remainingBalance.toLocaleString()}
+              </p>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">貸款利率</p>
+              <p className="text-xl font-bold">
+                {account.mortgageMetadata.interestRate}%
+              </p>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">每月繳款</p>
+              <p className="text-xl font-bold">
+                {account.mortgageMetadata.monthlyPayment.toLocaleString()}
+              </p>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">已繳期數</p>
+              <p className="text-xl font-bold">
+                {account.mortgageMetadata.paidPeriods}
+              </p>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">剩餘期數</p>
+              <p className="text-xl font-bold">
+                {account.mortgageMetadata.remainingPeriods}
+              </p>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">總期數</p>
+              <p className="text-xl font-bold">
+                {account.mortgageMetadata.totalPeriods}
+              </p>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">房貸進度</p>
+              <p className="text-xl font-bold">
+                {(
+                  (account.mortgageMetadata.paidPeriods /
+                    Math.max(account.mortgageMetadata.totalPeriods, 1)) *
+                  100
+                ).toFixed(2)}
+                %
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {!isBank && (
         <>
