@@ -52,7 +52,7 @@ model Account {
   cashTransactions CashTransaction[]
   recurringCashTransactions RecurringCashTransaction[]
   recurringInvestments      RecurringInvestment[]
-
+  mortgageMetadata MortgageMetadata?
   @@index([userId, isActive])
   @@index([userId, isActive, type, isPinned, sortOrder])
 }
@@ -444,4 +444,37 @@ model CronRun {
   createdAt  DateTime  @default(now())
 
   @@index([name, ok, startedAt(sort: Desc)])
+}
+model MortgageMetadata {
+  id String @id @default(cuid())
+
+  accountId String @unique
+
+  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  bankName String?
+
+  principalAmount Decimal @db.Decimal(28,2)
+
+  interestRate Decimal @db.Decimal(8,4)
+
+  monthlyPayment Decimal @db.Decimal(28,2)
+
+  startDate DateTime
+
+  endDate DateTime
+
+  totalPeriods Int
+
+  paidPeriods Int
+
+  remainingPeriods Int
+
+  remainingBalance Decimal @db.Decimal(28,2)
+
+  nextPaymentDate DateTime?
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
 }

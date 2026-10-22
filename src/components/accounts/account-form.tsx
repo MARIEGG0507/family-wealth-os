@@ -49,6 +49,11 @@ export function AccountForm({
   const [currency, setCurrency] = useState(defaultCurrency);
   const [cashBalance, setCashBalance] = useState("0");
   const [cashBalanceError, setCashBalanceError] = useState("");
+  const [principalAmount, setPrincipalAmount] = useState("");
+  const [interestRate, setInterestRate] = useState("");
+  const [monthlyPayment, setMonthlyPayment] = useState("");
+  const [paidPeriods, setPaidPeriods] = useState("");
+  const [remainingBalance, setRemainingBalance] = useState("");
 
   // Reset to defaults, then close, so a discarded/submitted form doesn't reopen
   // with stale input.
@@ -210,7 +215,43 @@ export function AccountForm({
           )}
         </div>
       )}
+      {category === "MORTGAGE" && (
+        <div className="space-y-4 rounded-lg border p-4">
+          <h3 className="font-medium">房貸資訊</h3>
 
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="space-y-2">
+              <Label>貸款本金</Label>
+              <Input placeholder="10800000" />
+            </div>
+
+            <div className="space-y-2">
+              <Label>利率 (%)</Label>
+              <Input placeholder="2.210" />
+            </div>
+
+            <div className="space-y-2">
+              <Label>每月繳款</Label>
+              <Input placeholder="33864" />
+            </div>
+
+            <div className="space-y-2">
+              <Label>剩餘本金</Label>
+              <Input placeholder="10339460" />
+            </div>
+
+            <div className="space-y-2">
+              <Label>已繳期數</Label>
+              <Input placeholder="31" />
+            </div>
+
+            <div className="space-y-2">
+              <Label>剩餘期數</Label>
+              <Input placeholder="450" />
+            </div>
+          </div>
+        </div>
+      )}
       <div className="flex justify-end gap-2 pt-2">
         <Button type="button" variant="outline" onClick={requestClose}>
           {t("accountForm.cancel")}
