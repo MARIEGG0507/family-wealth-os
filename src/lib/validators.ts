@@ -222,24 +222,42 @@ const cashNoteField = z.string().max(500).optional().nullable();
 // `createdAt` (see #500). Nullable on update so an edit can clear a
 // backdate and restore the createdAt fallback.
 const cashOccurrenceDateField = z.iso.date("Must be a valid YYYY-MM-DD date");
+const expenseCategoryField = z
+  .enum([
+    "HOUSING",
+    "FOOD",
+    "TRANSPORT",
+    "EDUCATION",
+    "INSURANCE",
+    "HEALTHCARE",
+    "SHOPPING",
+    "ENTERTAINMENT",
+    "TAX",
+    "OTHER",
+  ])
+  .optional()
+  .nullable();
 
 export const createCashTransactionSchema = z.discriminatedUnion("type", [
   z.object({
     type: z.literal("DEPOSIT"),
     amount: positiveCashAmount,
     note: cashNoteField,
+    category: expenseCategoryField,
     occurrenceDate: cashOccurrenceDateField.optional(),
   }),
   z.object({
     type: z.literal("WITHDRAWAL"),
     amount: positiveCashAmount,
     note: cashNoteField,
+    category: expenseCategoryField,
     occurrenceDate: cashOccurrenceDateField.optional(),
   }),
   z.object({
     type: z.literal("EDIT"),
     amount: nonZeroCashAdjustment,
     note: cashNoteField,
+    category: expenseCategoryField,
     occurrenceDate: cashOccurrenceDateField.optional(),
   }),
 ]);

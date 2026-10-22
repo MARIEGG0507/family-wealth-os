@@ -137,6 +137,18 @@ enum CashTransactionType {
   WITHDRAWAL
   EDIT
 }
+enum ExpenseCategory {
+  HOUSING
+  FOOD
+  TRANSPORT
+  EDUCATION
+  INSURANCE
+  HEALTHCARE
+  SHOPPING
+  ENTERTAINMENT
+  TAX
+  OTHER
+}
 
 model CashTransaction {
   id        String              @id @default(cuid())
@@ -145,6 +157,7 @@ model CashTransaction {
   type      CashTransactionType
   amount    Decimal             @db.Decimal(28, 8)
   note      String?
+  category ExpenseCategory?
   createdAt DateTime            @default(now())
 
   // Set when this row was materialized from a recurring rule. `occurrenceDate`
