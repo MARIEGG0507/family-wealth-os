@@ -107,9 +107,7 @@ export const POST = withAuth(
           },
         });
       }
-      if (
-        parsed.data.category === "MORTGAGE"
-      ) {
+      if (parsed.data.category === "MORTGAGE") {
         await tx.mortgageMetadata.create({
           data: {
             accountId: created.id,
@@ -119,9 +117,7 @@ export const POST = withAuth(
             remainingBalance: parsed.data.remainingBalance ?? 0,
             paidPeriods: parsed.data.paidPeriods ?? 0,
             remainingPeriods: parsed.data.remainingPeriods ?? 0,
-            totalPeriods:
-              (parsed.data.paidPeriods ?? 0) +
-              (parsed.data.remainingPeriods ?? 0),
+            totalPeriods: (parsed.data.paidPeriods ?? 0) + (parsed.data.remainingPeriods ?? 0),
             startDate: new Date(),
             endDate: new Date(),
             bankName: null,
