@@ -1207,6 +1207,13 @@ function MobileAccountRow({
               )}
               <p className="font-medium text-sm truncate">{account.name}</p>
             </div>
+
+            <p className="text-xs text-primary mt-0.5">
+              {account.ownership === "SELF" && "🧔 老公資產"}
+              {account.ownership === "SPOUSE" && "👩 老婆資產"}
+              {account.ownership === "JOINT" && "🤝 共同資產"}
+            </p>
+
             <p className="text-xs text-muted-foreground mt-0.5">
               {t(`categories.${account.category}`, { defaultValue: account.category })}
               {!isBank && holdingCount > 0 && (

@@ -45,9 +45,7 @@ export const createAccountSchema = z.object({
   type: z.enum(ACCOUNT_TYPES),
   category: z.enum(ACCOUNT_CATEGORIES),
 
-  ownership: z
-    .enum(["SELF", "SPOUSE", "JOINT"])
-    .default("SELF"),
+  ownership: z.enum(["SELF", "SPOUSE", "JOINT"]).default("SELF"),
 
   currency: z.string().length(3),
   cashBalance: crudDecimalNumber.default(0),
