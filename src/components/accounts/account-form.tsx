@@ -46,9 +46,7 @@ export function AccountForm({
   const [name, setName] = useState("");
   const [type, setType] = useState<"ASSET" | "LIABILITY">("ASSET");
   const [category, setCategory] = useState("BANK");
-  const [ownership, setOwnership] = useState<
-    "SELF" | "SPOUSE" | "JOINT"
-  >("SELF");
+  const [ownership, setOwnership] = useState<"SELF" | "SPOUSE" | "JOINT">("SELF");
   const [currency, setCurrency] = useState(defaultCurrency);
   const [cashBalance, setCashBalance] = useState("0");
   const [cashBalanceError, setCashBalanceError] = useState("");
@@ -198,26 +196,18 @@ export function AccountForm({
 
         <Select
           value={ownership}
-          onValueChange={(v) =>
-            setOwnership(v as "SELF" | "SPOUSE" | "JOINT")
-          }
+          onValueChange={(v) => setOwnership(v as "SELF" | "SPOUSE" | "JOINT")}
         >
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
 
           <SelectContent>
-            <SelectItem value="SELF">
-              👨 老公資產
-            </SelectItem>
+            <SelectItem value="SELF">👨 老公資產</SelectItem>
 
-            <SelectItem value="SPOUSE">
-              👩 老婆資產
-            </SelectItem>
+            <SelectItem value="SPOUSE">👩 老婆資產</SelectItem>
 
-            <SelectItem value="JOINT">
-              🤝 共同資產
-            </SelectItem>
+            <SelectItem value="JOINT">🤝 共同資產</SelectItem>
           </SelectContent>
         </Select>
       </div>

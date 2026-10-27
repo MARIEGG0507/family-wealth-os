@@ -44,6 +44,11 @@ export const createAccountSchema = z.object({
   name: z.string().min(1, "Name is required").max(100),
   type: z.enum(ACCOUNT_TYPES),
   category: z.enum(ACCOUNT_CATEGORIES),
+
+  ownership: z
+    .enum(["SELF", "SPOUSE", "JOINT"])
+    .default("SELF"),
+
   currency: z.string().length(3),
   cashBalance: crudDecimalNumber.default(0),
 
